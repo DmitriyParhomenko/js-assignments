@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.slice(7, -1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +114,11 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    let str = '';
+    for(let i = 0; i < count; i++){
+        str += value;
+    }
+    return str;
 }
 
 /**
@@ -130,7 +134,8 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, '');
+    // return str.split(' ').filter((elem) => elem != value).join(' ');
 }
 
 /**
@@ -145,7 +150,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1, -1);
 }
 
 
@@ -160,7 +165,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toLocaleUpperCase();
 }
 
 /**
@@ -174,7 +179,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -201,7 +206,9 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    return "┌" + "─".repeat(width - 2) + "┐\n" +
+             ("│" + " ".repeat(width - 2) + "│\n").repeat(height - 2) + 
+             "└" + "─".repeat(width - 2) + "┘\n";
 }
 
 
@@ -221,7 +228,14 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return str.split('').map(elem => {
+        let code = elem.charCodeAt();
+        if(code >= 65 && code <= 90)
+            return String.fromCharCode(code % 26 + 65);
+        if(code >= 97 && code <= 122)
+            return String.fromCharCode((code - 84) % 26 + 97);
+        return elem;
+    }).join('');
 }
 
 /**
@@ -238,7 +252,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return !!value && (value === value.toString() || value instanceof String);
 }
 
 
@@ -266,9 +280,30 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
+
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let spec = {
+        'A' : 0,
+        '2' : 1,
+        '3' : 2,
+        '4' : 3,
+        '5' : 4,
+        '6' : 5,
+        '7' : 6,
+        '8' : 7,
+        '9' : 8,
+        '10' : 9,
+        'J' : 10,
+        'Q' : 11,
+        'K' : 12,
+        '♣' : 0,
+        '♦' : 13,
+        '♥' : 26,
+        '♠' : 39,
+    };
+    return spec[value.slice(0, -1)] + spec[value[value.length - 1]];
 }
+
 
 
 module.exports = {
